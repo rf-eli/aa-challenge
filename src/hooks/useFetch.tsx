@@ -1,7 +1,7 @@
 import { useEffect, useReducer } from "react";
 
 interface Response<T> {
-  data?: T;
+  result?: T;
   error?: Error;
   loading: boolean;
 }
@@ -15,7 +15,7 @@ function useFetch<T>(url: string): Response<T> {
   const fetchReducer = (state: Response<T>, action: Action<T>): Response<T> => {
     switch (action.type) {
       case "SET_DATA":
-        return { ...state, data: action.payload };
+        return { ...state, result: action.payload };
       case "SET_LOADING":
         return { ...state, loading: action.payload };
       case "SET_ERROR":
@@ -31,7 +31,7 @@ function useFetch<T>(url: string): Response<T> {
     dispatch({ type: "SET_LOADING", payload: true });
     fetch(url)
       .then((data) => data.json())
-      .then((result) => console.log(result))
+      .then((result) => dispatch({ type: "SET_DATA", payload: result }))
       .catch((error) => dispatch({ type: "SET_ERROR", payload: error }))
       .finally(() => dispatch({ type: "SET_LOADING", payload: false }));
   }, [url]);
