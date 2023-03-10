@@ -20,7 +20,7 @@ const ImageCard: React.FC<Props> = ({ imageData }: Props) => {
         alt={imageData.filename}
         className={`${selectedId == imageData.id && "selected"}`}
       />
-      <div className="image-card-filename">{imageData.filename}</div>
+      <div className="image-card-filename truncate">{imageData.filename}</div>
       <div className="image-card-size">
         {bytesToMegabytes(imageData.sizeInBytes)}
       </div>
