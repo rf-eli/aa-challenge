@@ -5,33 +5,35 @@ import useFetch from "./hooks/useFetch";
 import { ImageData } from "./types/ImageData";
 import ImageCard from "./components/ImageCard/ImageCard";
 import Sidebar from "./components/Sidebar/Sidebar";
+import { useSelector, useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "./stores/store";
+import { fetchImages } from "./stores/imagesSlice";
 
 function App() {
-  const { result, error, loading } = useFetch<ImageData[]>(
-    "https://agencyanalytics-api.vercel.app/images.json"
-  );
+  const images = useSelector((state: RootState) => state.images);
+  const dispatch = useDispatch<AppDispatch>();
 
-  const sortedData = useMemo(() => {
-    if (!result) return;
+  if (images.status === "idle") dispatch(fetchImages());
 
-    result.sort((a: ImageData, b: ImageData): number => {
-      const dateA: Date = new Date(a.createdAt);
-      const dateB: Date = new Date(b.createdAt);
-      return dateB.getTime() - dateA.getTime();
-    });
+  // console.log(images.data);
+  // const sortedData = useMemo(() => {
+  //   if (!images.data) return;
+  //   let result = images.data;
+  //   return result.sort((a: ImageData, b: ImageData): number => {
+  //     const dateA: Date = new Date(a.createdAt);
+  //     const dateB: Date = new Date(b.createdAt);
+  //     return dateB.getTime() - dateA.getTime();
+  //   });
+  // }, [images.data]);
 
-    return result;
-  }, [result]);
+  if (images.status === "loading") return <>Loading...</>;
 
-  if (result) console.log(new Date(result[0].createdAt).valueOf());
-
-  if (loading) return <>Loading...</>;
   return (
     <div className="App">
       <div style={{ display: "flex" }}>
         <div style={{ display: "flex", flexWrap: "wrap" }}>
-          {sortedData &&
-            sortedData.map((data) => {
+          {images.data &&
+            images.data.map((data) => {
               return <ImageCard imageData={data} />;
             })}
         </div>

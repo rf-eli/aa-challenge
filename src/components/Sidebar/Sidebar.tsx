@@ -1,11 +1,13 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../../stores/store";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteImage } from "../../stores/imagesSlice";
+import { AppDispatch, RootState } from "../../stores/store";
 import { bytesToMegabytes } from "../../utils/format-bytes";
 import { formatDateAsString } from "../../utils/format-dates";
 import "./sidebar.css";
 
 const Sidebar: React.FC = () => {
   const selected = useSelector((state: RootState) => state.selectedImage);
+  const dispatch = useDispatch<AppDispatch>();
 
   if (!selected.id) return <>Loading</>;
 
@@ -46,7 +48,7 @@ const Sidebar: React.FC = () => {
         </span>
       </div>
       <p>{selected.description}</p>
-      <button>Delete</button>
+      <button onClick={() => dispatch(deleteImage(selected.id))}>Delete</button>
     </div>
   );
 };
