@@ -14,12 +14,12 @@
   height: 150px;
   object-fit: cover;
   border: 2px solid transparent;
-  transition: linear 0.5s;
+  transition: ease-in-out 0.5s;
 }
 
 .selected {
   border: 2px solid var(--primary) !important;
-  transition: linear 0.5s;
+  transition: ease-in-out 0.5s;
 }
 
 .image-card-filename {

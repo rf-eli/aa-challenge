@@ -37,6 +37,12 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  padding: 10px 0;
+}
+
+.sidebar-info > span:first-child {
+  color: var(--secondary);
+  font-weight: bold;
 }
 
 .sidebar-info h3 {
