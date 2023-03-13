@@ -1,15 +1,24 @@
-import { useSelector, useDispatch } from "react-redux";
-import { deleteImage } from "../../stores/imagesSlice";
-import { AppDispatch, RootState } from "../../stores/store";
-import { bytesToMegabytes } from "../../utils/format-bytes";
-import { formatDateAsString } from "../../utils/format-dates";
-import "./sidebar.css";
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteImage } from '../../stores/imagesSlice';
+import { select } from '../../stores/selectedImageSlice';
+import { AppDispatch, RootState } from '../../stores/store';
+import { bytesToMegabytes } from '../../utils/format-bytes';
+import { formatDateAsString } from '../../utils/format-dates';
+import './sidebar.css';
 
 const Sidebar: React.FC = () => {
   const selected = useSelector((state: RootState) => state.selectedImage);
+  const images = useSelector((state: RootState) => state.images.data);
   const dispatch = useDispatch<AppDispatch>();
 
   if (!selected.id) return <>Loading</>;
+
+  const handleDelete = () => {
+    const index = images.map((data) => data.id).indexOf(selected.id);
+    dispatch(deleteImage(selected.id));
+    if (index >= images.length - 1) dispatch(select(images[index - 1]));
+    else dispatch(select(images[index + 1]));
+  };
 
   return (
     <div className="sidebar">
@@ -48,7 +57,7 @@ const Sidebar: React.FC = () => {
         </span>
       </div>
       <p>{selected.description}</p>
-      <button onClick={() => dispatch(deleteImage(selected.id))}>Delete</button>
+      <button onClick={handleDelete}>Delete</button>
     </div>
   );
 };

@@ -1,27 +1,33 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import { ImageData } from "../types/ImageData";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { ImageData } from '../types/ImageData';
 
-export const fetchImages = createAsyncThunk("images", async () => {
+export const fetchImages = createAsyncThunk('images', async () => {
   const response = await fetch(
-    "https://agencyanalytics-api.vercel.app/images.json"
+    'https://agencyanalytics-api.vercel.app/images.json'
   );
-  return await response.json();
+  const json = await response.json();
+  const sorted = json.sort((a: ImageData, b: ImageData) => {
+    const dateA = new Date(a.createdAt);
+    const dateB = new Date(b.createdAt);
+    return dateB.getTime() - dateA.getTime();
+  });
+  return sorted;
 });
 
 interface ImagesState {
   data: ImageData[];
-  status: "idle" | "loading" | "success" | "fail";
+  status: 'idle' | 'loading' | 'success' | 'fail';
   error?: Error;
 }
 
 const initialState = {
   data: [],
-  status: "idle",
+  status: 'idle',
 } as ImagesState;
 
 const imagesSlice = createSlice({
-  name: "images",
+  name: 'images',
   initialState,
   reducers: {
     deleteImage: (state, action) => {
@@ -32,15 +38,15 @@ const imagesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchImages.pending, (state, action) => {
-        if (state.status === "idle") {
-          state.status = "loading";
+        if (state.status === 'idle') {
+          state.status = 'loading';
         }
       })
       .addCase(
         fetchImages.fulfilled,
         (state, action: PayloadAction<ImageData>) => {
           state.data = state.data.concat(action.payload);
-          state.status = "success";
+          state.status = 'success';
         }
       );
   },
