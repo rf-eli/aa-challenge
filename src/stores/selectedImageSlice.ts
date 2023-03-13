@@ -10,6 +10,7 @@ export const selectedImageSlice = createSlice({
   reducers: {
     select: (state, action: PayloadAction<ImageData>) => {
       state.id = action.payload.id;
+      state.url = action.payload.url;
       state.filename = action.payload.filename;
       state.sizeInBytes = action.payload.sizeInBytes;
       state.uploadedBy = action.payload.uploadedBy;
@@ -18,6 +19,7 @@ export const selectedImageSlice = createSlice({
       state.dimensions = action.payload.dimensions;
       state.resolution = action.payload.resolution;
       state.description = action.payload.description;
+      state.favorited = action.payload.favorited;
     },
   },
 });

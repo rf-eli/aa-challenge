@@ -1,0 +1,26 @@
+.icon {
+  stroke: var(--secondary);
+  fill: none;
+  margin-top: 10px;
+  margin-right: 5px;
+}
+
+.clicked {
+  fill: red;
+  animation: favorited 0.5s;
+  stroke: none;
+}
+
+@keyframes favorited {
+  0% {
+    transform: scale(1);
+  }
+  80% {
+    transform: scale(1.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

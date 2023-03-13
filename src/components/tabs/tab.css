@@ -1,0 +1,18 @@
+.tab {
+  font-weight: bolder;
+  background-color: transparent;
+  border: none;
+  padding: 0 0 16px 0;
+  color: var(--secondary);
+  margin-right: 30px;
+}
+
+button.tab:hover {
+  color: var(--primary);
+  opacity: 0.6;
+}
+
+.active {
+  color: var(--primary);
+  border-bottom: 2px solid var(--primary);
+}

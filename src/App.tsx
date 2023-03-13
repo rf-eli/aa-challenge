@@ -1,34 +1,29 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
 import "./App.css";
-import useFetch from "./hooks/useFetch";
-import { ImageData } from "./types/ImageData";
-import ImageCard from "./components/ImageCard/ImageCard";
-import { useSelector } from "react-redux";
-import { RootState } from "./stores/store";
-import { useDispatch } from "react-redux/es/exports";
-import { select } from "./stores/selectedImageSlice";
+import Sidebar from "./components/Sidebar/Sidebar";
+import { useSelector, useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "./stores/store";
+import { fetchImages } from "./stores/imagesSlice";
+import Content from "./components/content/Content";
 
 function App() {
-  const { result, error, loading } = useFetch<ImageData[]>(
-    "https://agencyanalytics-api.vercel.app/images.json"
-  );
+  const images = useSelector((state: RootState) => state.images);
+  const dispatch = useDispatch<AppDispatch>();
 
-  const selected = useSelector((state: RootState) => state.selectedImage);
-  const dispatch = useDispatch();
+  if (images.status === "idle") dispatch(fetchImages());
 
-  if (result) {
-    dispatch(select(result[0]));
-  }
-
-  if (loading) return <>Loading...</>;
   return (
     <div className="App">
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {result &&
-          result.map((data) => {
-            return <ImageCard imageData={data} selected={false} />;
-          })}
+      <div
+        style={{
+          display: "flex",
+          height: "100vh",
+          justifyContent: "space-around",
+          margin: "auto",
+          maxWidth: 1400,
+        }}
+      >
+        <Content />
+        <Sidebar />
       </div>
     </div>
   );
