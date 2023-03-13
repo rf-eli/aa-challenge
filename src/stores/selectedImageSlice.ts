@@ -19,6 +19,7 @@ export const selectedImageSlice = createSlice({
       state.dimensions = action.payload.dimensions;
       state.resolution = action.payload.resolution;
       state.description = action.payload.description;
+      state.favorited = action.payload.favorited;
     },
   },
 });
