@@ -17,7 +17,7 @@ const Tabs: React.FC<Props> = ({ tabs, sort, setSort }: Props) => {
     <>
       <div
         style={{
-          width: "100%",
+          width: "90%",
           borderBottom: "1px solid var(--light-gray)",
           display: "flex",
         }}

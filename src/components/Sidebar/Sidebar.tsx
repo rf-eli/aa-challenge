@@ -5,6 +5,7 @@ import { select } from "../../stores/selectedImageSlice";
 import { AppDispatch, RootState } from "../../stores/store";
 import { bytesToMegabytes } from "../../utils/format-bytes";
 import { formatDateAsString } from "../../utils/format-dates";
+import Button from "../Button/Button";
 import HeartIcon from "../icons/HeartIcon";
 import "./sidebar.css";
 
@@ -74,8 +75,13 @@ const Sidebar: React.FC = () => {
           {selected.resolution.height} x {selected.resolution.width}
         </span>
       </div>
-      <p>{selected.description}</p>
-      <button onClick={handleDelete}>Delete</button>
+      {selected.description && (
+        <>
+          <h3>Description</h3>
+          <p>{selected.description}</p>
+        </>
+      )}
+      <Button onClick={handleDelete} text="Delete" />
     </div>
   );
 };
