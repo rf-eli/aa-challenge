@@ -1,0 +1,12 @@
+.tab {
+  font-weight: bolder;
+  background-color: transparent;
+  border: none;
+  padding-bottom: 20px;
+  color: var(--secondary);
+}
+
+.active {
+  color: var(--primary);
+  border-bottom: 2px solid var(--primary);
+}
