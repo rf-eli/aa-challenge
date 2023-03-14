@@ -6,7 +6,7 @@
   flex-direction: column;
   align-items: start;
   background-color: white;
-  height: 100%;
+  min-height: 100%;
   border-inline: 1px solid var(--light-gray);
 }
 
@@ -21,8 +21,9 @@
 .sidebar img {
   height: 25vh;
   min-width: 100%;
+  max-width: 100%;
   object-fit: cover;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .sidebar-title-row {
@@ -69,7 +70,7 @@
   font-size: 0.875em;
 }
 
-@media only screen and (max-width: 1080px) {
+@media only screen and (max-width: 800px) {
   .sidebar {
     overflow: scroll;
     position: fixed;
