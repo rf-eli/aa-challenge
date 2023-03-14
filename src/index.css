@@ -6,6 +6,12 @@
   --secondary: #64748b;
   --light-gray: #e2e8f0;
   background-color: #f7fafc;
+  height: 100%;
+}
+
+html,
+body {
+  height: 100%;
 }
 
 body {

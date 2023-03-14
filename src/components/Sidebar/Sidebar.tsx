@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteImage, toggleFavoriteImage } from "../../stores/imagesSlice";
 import { select } from "../../stores/selectedImageSlice";
@@ -6,17 +6,23 @@ import { AppDispatch, RootState } from "../../stores/store";
 import { bytesToMegabytes } from "../../utils/format-bytes";
 import { formatDateAsString } from "../../utils/format-dates";
 import Button from "../Button/Button";
-import HeartIcon from "../icons/HeartIcon";
+import HeartIcon from "../icons/HeartIcon/HeartIcon";
+import XIcon from "../icons/XIcon/XIcon";
 import "./sidebar.css";
 
 const Sidebar: React.FC = () => {
   const selected = useSelector((state: RootState) => state.selectedImage);
   const images = useSelector((state: RootState) => state.images.data);
+  const [showMobile, setShowMobile] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
   const index = useMemo(
     () => images.map((data) => data.id).indexOf(selected.id),
     [images, selected]
   );
+
+  useEffect(() => {
+    setShowMobile(true);
+  }, [selected]);
 
   if (!selected.id) return <>Loading</>;
 
@@ -30,8 +36,13 @@ const Sidebar: React.FC = () => {
     dispatch(toggleFavoriteImage(index));
   };
 
+  const classes = `sidebar ${!showMobile && "hidden"}`;
+
   return (
-    <div className="sidebar">
+    <div className={classes}>
+      <div className="sidebar-close">
+        <XIcon height={24} width={24} onClick={() => setShowMobile(false)} />
+      </div>
       <img src={selected.url} alt={selected.filename} />
       <div className="sidebar-title-row">
         <span className="sidebar-filename">{selected.filename}</span>

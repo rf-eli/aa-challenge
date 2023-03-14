@@ -1,5 +1,6 @@
 import { SortBy } from "../../types/SortBy";
 import Tab from "./Tab";
+import "./tabs.css";
 
 interface Props {
   tabs: TabData[];
@@ -7,7 +8,7 @@ interface Props {
   setSort: any;
 }
 
-type TabData = {
+export type TabData = {
   text: string;
   sortAction: SortBy;
 };
@@ -15,13 +16,7 @@ type TabData = {
 const Tabs: React.FC<Props> = ({ tabs, sort, setSort }: Props) => {
   return (
     <>
-      <div
-        style={{
-          width: "90%",
-          borderBottom: "1px solid var(--light-gray)",
-          display: "flex",
-        }}
-      >
+      <div className="tabs">
         {tabs.map((data, index) => {
           return (
             <Tab

@@ -1,0 +1,8 @@
+.container {
+  display: flex;
+  /* justify-content: space-between; */
+  height: 100%;
+  margin: auto;
+  max-width: 1280px;
+  gap: 0;
+}

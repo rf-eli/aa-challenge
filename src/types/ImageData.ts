@@ -11,6 +11,7 @@ export interface ImageData {
   sizeInBytes: number;
   sharedWith: SharedWith[];
   favorited: boolean;
+  reclick?: boolean; // In case same image is selected, used for mobile sidebar modal
 }
 
 type DimensionData = {
