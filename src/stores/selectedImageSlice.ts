@@ -20,6 +20,7 @@ export const selectedImageSlice = createSlice({
       state.resolution = action.payload.resolution;
       state.description = action.payload.description;
       state.favorited = action.payload.favorited;
+      state.reclick = !state.reclick; // In case same image is selected, used for mobile sidebar modal
     },
   },
 });
