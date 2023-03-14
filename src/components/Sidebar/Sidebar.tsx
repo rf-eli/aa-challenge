@@ -6,8 +6,8 @@ import { AppDispatch, RootState } from "../../stores/store";
 import { bytesToMegabytes } from "../../utils/format-bytes";
 import { formatDateAsString } from "../../utils/format-dates";
 import Button from "../Button/Button";
-import HeartIcon from "../icons/HeartIcon/HeartIcon";
-import XIcon from "../icons/XIcon/XIcon";
+import HeartIcon from "../Icons/HeartIcon/HeartIcon";
+import XIcon from "../Icons/XIcon/XIcon";
 import "./sidebar.css";
 
 const Sidebar: React.FC = () => {
