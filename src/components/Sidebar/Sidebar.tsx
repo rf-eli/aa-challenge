@@ -40,59 +40,65 @@ const Sidebar: React.FC = () => {
 
   return (
     <div className={classes}>
-      <div className="sidebar-close">
-        <XIcon height={24} width={24} onClick={() => setShowMobile(false)} />
+      <div className="fixed-position">
+        <div className="sidebar-close">
+          <XIcon height={24} width={24} onClick={() => setShowMobile(false)} />
+        </div>
+        <img
+          src={selected.url}
+          alt={selected.filename}
+          className="sidebar-img"
+        />
+        <div className="sidebar-title-row">
+          <span className="sidebar-filename">{selected.filename}</span>
+          <span>
+            <HeartIcon
+              width={20}
+              height={20}
+              stroke={1.5}
+              favorited={images[index].favorited}
+              onClick={handleFavorite}
+            />
+          </span>
+        </div>
+        <div className="sidebar-size">
+          {bytesToMegabytes(selected.sizeInBytes)}
+        </div>
+        <div className="sidebar-info">
+          <h3>Information</h3>
+        </div>
+        <div className="sidebar-info">
+          <span>Uploaded By</span>
+          <span>{selected.uploadedBy}</span>
+        </div>
+        <div className="sidebar-info">
+          <span>Created</span>
+          <span>{formatDateAsString(selected.createdAt)}</span>
+        </div>
+        <div className="sidebar-info">
+          <span>Last modified</span>
+          <span>{formatDateAsString(selected.updatedAt)}</span>
+        </div>
+        <div className="sidebar-info">
+          <span>Dimensions</span>
+          <span>
+            {selected.dimensions.height} x {selected.dimensions.width}
+          </span>
+        </div>
+        <div className="sidebar-info">
+          <span>Resolution</span>
+          <span>
+            {selected.resolution.height} x {selected.resolution.width}
+          </span>
+        </div>
+        {selected.description && (
+          <>
+            <h3>Description</h3>
+            <p>{selected.description}</p>
+          </>
+        )}
+        <Button onClick={handleDelete} text="Delete" />
       </div>
-      <img src={selected.url} alt={selected.filename} />
-      <div className="sidebar-title-row">
-        <span className="sidebar-filename">{selected.filename}</span>
-        <span>
-          <HeartIcon
-            width={20}
-            height={20}
-            stroke={1.5}
-            favorited={images[index].favorited}
-            onClick={handleFavorite}
-          />
-        </span>
-      </div>
-      <div className="sidebar-size">
-        {bytesToMegabytes(selected.sizeInBytes)}
-      </div>
-      <div className="sidebar-info">
-        <h3>Information</h3>
-      </div>
-      <div className="sidebar-info">
-        <span>Uploaded By</span>
-        <span>{selected.uploadedBy}</span>
-      </div>
-      <div className="sidebar-info">
-        <span>Created</span>
-        <span>{formatDateAsString(selected.createdAt)}</span>
-      </div>
-      <div className="sidebar-info">
-        <span>Last modified</span>
-        <span>{formatDateAsString(selected.updatedAt)}</span>
-      </div>
-      <div className="sidebar-info">
-        <span>Dimensions</span>
-        <span>
-          {selected.dimensions.height} x {selected.dimensions.width}
-        </span>
-      </div>
-      <div className="sidebar-info">
-        <span>Resolution</span>
-        <span>
-          {selected.resolution.height} x {selected.resolution.width}
-        </span>
-      </div>
-      {selected.description && (
-        <>
-          <h3>Description</h3>
-          <p>{selected.description}</p>
-        </>
-      )}
-      <Button onClick={handleDelete} text="Delete" />
     </div>
   );
 };
